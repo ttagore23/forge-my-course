@@ -1,60 +1,33 @@
-# CourseForge — Build Plan
+## Rebrand to "Distill" + expand landing page
 
-A dark-themed React web app that demos an AI course-generation flow across three routes plus a launch modal. Pure frontend, all data mocked.
+Apply the exact edits provided across three files.
 
-## Stack
+### File 1: `src/routes/__root.tsx`
+Update `head()` meta: title → "Distill — Turn Anything Into a Course", og:title and twitter:title to match, and description/og:description/twitter:description to the new long-form copy.
 
-Scaffold a `web_app` artifact (TanStack Start template, React + Tailwind). Add React Router for navigation between the three pages. No backend — all "AI generation" is a timed animation, all content is hardcoded mock data.
+### File 2: `src/routes/index.tsx`
+1. Add `useState` import; add `ChevronDown` to lucide imports.
+2. Replace `mockModules` with the 6-entry version that includes a `preview` field per module.
+3. Add `expandedModule` and `waitlistDone` state in `Landing`.
+4. Hero H1 → "Distill Your Expertise Into a Course. In 60 Seconds."
+5. Hero subhead → new "Drop your YouTube videos…" copy.
+6. Add third "Try an example →" button in hero CTA row (links to `/course-output`).
+7. URL bar in browser mockup → `distill.app/c/rate-raising-playbook`.
+8. Make mockup module rows interactive (button toggles `expandedModule`, shows ChevronDown that rotates, reveals `m.preview` panel below when expanded).
+9. New Testimonials section (3 cards: Maya R., James T., Sofia L.).
+10. New Revenue Calculator section + `RevenueCalculator` component (3 range sliders for price/list size/conv rate, computes `price * listSize * convRate/100`, shows first-launch and 3–5× year-1 projection).
+11. New Pricing section (Free / Creator [highlighted "Most popular"] / Pro tiers).
+12. Waitlist form: on submit set `waitlistDone=true`; when true, replace form with "You're in!" confirmation + Share on X link.
+13. Footer copyright → "© 2026 Distill. Built for creators."
 
-## Design tokens (global)
+### Technical notes
+- All new sections use existing design tokens (`#0F172A`, `#1E293B`, `#14B8A6`, slate-700 borders, rounded-xl cards, teal hover glow) consistent with current landing.
+- `RevenueCalculator` defined as module-level function below `Landing`, uses native `<input type="range">` with `accent-[#14B8A6]`.
+- "Try an example" button uses the same ghost button styling as "See an example" and navigates to `/course-output` via `<Link>`.
+- Module preview panel uses subtle slate background and small fade; ChevronDown rotates 180° via conditional class when expanded.
 
-Wire into Tailwind config + `index.css`:
-- Background `#0F172A`, surface `#1E293B`, accent teal `#14B8A6`, text white, muted `slate-400`, border `slate-700`
-- Font: Inter (Google Fonts)
-- Reusable utilities: `.card` (rounded-xl, slate-700 border, hover teal border), `.btn-teal` (filled teal + `box-shadow: 0 0 20px #14B8A680` glow), `.btn-ghost`
-- Hero background: subtle radial dot grid (CSS background-image)
-- Animations: gradient pulse keyframe (teal↔white) for H1; 150ms fade+translateY for tab content; route fade transitions
+### File 3: `src/routes/course-output.tsx`
+1. Sticky bar text: "CourseForge generated 23 assets" → "Distill generated 23 assets".
+2. Insert a "Share your course" section directly above the fixed sticky bar with three actions: Copy link (uses existing `showToast`, copies `https://distill.app/c/rate-raising-playbook`), Share on X (prefilled tweet), Share on LinkedIn. `Copy` icon already imported.
 
-## Routes
-
-### `/` — Landing
-- **Navbar**: teal "CourseForge" wordmark, ghost links (How it works · Pricing · Examples), teal CTA "Generate My Course →" → `/generate`
-- **Hero**: overline tag, gradient H1 with pulse animation, subhead, dual CTA (both → `/generate`), social proof row (5 avatar circles + stats)
-- **Value props**: 3 dark cards in a row (stacks on mobile)
-- **Browser mockup**: dark rounded frame containing 6 mock module rows
-- **Footer**: waitlist email input + submit
-
-### `/generate` — Course Generator
-- Two-column layout (45/55, stacks on mobile)
-- **Left**: drag-drop zone (dashed teal border, decorative only), URL input, 3 pre-populated file chips with × remove
-- **Right**: audience input, outcome textarea, two segmented controls (length, price)
-- **Bottom**: full-width glowing teal "Generate My Course →"
-- **On click**: swap to centered generation card — pulsing logo, filling teal progress bar, status text rotating every 1.5s through 6 phrases, `setTimeout` 6s → navigate to `/course-output`
-
-### `/course-output` — Core Screen
-- **Top bar**: inline-editable title (contentEditable or input swap), meta pill tags, Back link, "Launch My Course →" (opens modal)
-- **Tab bar**: 5 tabs with teal active underline, animated transitions
-- **Curriculum tab** (default): left accordion sidebar (Module 1 expanded with 3 lessons, modules 2–6 collapsed with badges) + right detail panel for selected lesson with "View Script" / "Download Worksheet" buttons that switch tabs
-- **Scripts tab**: lesson dropdown + white teleprompter card (~200 words mock script) + toolbar buttons
-- **Workbook tab**: white PDF-styled card with serif headings, 3 fill-in inputs, reflection textarea, interactive 1–5 star rating, Download button
-- **Email Drip tab**: vertical timeline, 6 rows (Day 1/3/5/7/10/14) with teal day badge, subject, preview, Edit link
-- **Sales Page tab**: white card preview with H1, pain intro, 6 bullets, instructor bio, price block + Enroll CTA, "Copy Full Page HTML" button
-- **Sticky bottom bar**: asset count + Share button → toast "Link copied! ✓"
-
-### Launch Modal
-Centered, dark overlay: title, 4 platform tiles (Gumroad/Kajabi/Teachable/Download Files) with hover teal border, email input, social proof line, large teal "Launch My Course" button, fine print.
-
-## Component breakdown
-
-- `src/main.tsx` — Router setup
-- `src/pages/Landing.tsx`, `Generate.tsx`, `CourseOutput.tsx`
-- `src/components/` — `Navbar`, `BrowserMockup`, `ValueCard`, `FileChip`, `SegmentedControl`, `GenerationLoader`, `LaunchModal`, `Toast`, plus one component per tab (`CurriculumTab`, `ScriptsTab`, `WorkbookTab`, `EmailDripTab`, `SalesPageTab`)
-- `src/data/course.ts` — all mock content (modules, lessons, script text, emails, sales copy) in one place
-
-## State
-
-- Local `useState` only. Active tab + selected lesson lifted to `CourseOutput`. Modal/toast state local. No persistence, no backend.
-
-## Out of scope
-
-No real file upload, no real AI, no auth, no payments, no backend — this is a polished interactive demo of the described flow.
+No backend, routing, or data-model changes.
