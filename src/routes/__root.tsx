@@ -49,8 +49,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "CourseForge — Turn Your Expertise Into a Course in 60 Seconds" },
-      { name: "description", content: "AI that turns your podcasts, videos, and notes into a complete, sellable course — curriculum, scripts, workbook, emails, and sales page." },
+      { title: "CourseForge" },
+      { name: "description", content: "AI that turns your videos, notes, podcasts and any learnings into a complete, shippable curriculum, scripts, workbook, emails, and sales page." },
+      { property: "og:title", content: "CourseForge" },
+      { name: "twitter:title", content: "CourseForge" },
+      { property: "og:description", content: "AI that turns your videos, notes, podcasts and any learnings into a complete, shippable curriculum, scripts, workbook, emails, and sales page." },
+      { name: "twitter:description", content: "AI that turns your videos, notes, podcasts and any learnings into a complete, shippable curriculum, scripts, workbook, emails, and sales page." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/7e4dc6b3-3627-4083-9a06-28ecb92a8543/id-preview-47ab22ec--20c3c632-6796-4b47-8c7a-ec52b18f71fa.lovable.app-1779756286063.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/7e4dc6b3-3627-4083-9a06-28ecb92a8543/id-preview-47ab22ec--20c3c632-6796-4b47-8c7a-ec52b18f71fa.lovable.app-1779756286063.png" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:type", content: "website" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
