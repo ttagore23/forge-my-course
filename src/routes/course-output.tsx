@@ -102,11 +102,51 @@ function CourseOutput() {
         {tab === "Sales Page" && <SalesPage onCopy={() => showToast("HTML copied to clipboard ✓")} />}
       </div>
 
+      {/* Share section */}
+      <div className="mx-auto max-w-7xl px-6 pb-8">
+        <div className="rounded-xl border border-slate-700 bg-[#1E293B] p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h3 className="text-lg font-semibold text-white">Share your course</h3>
+            <p className="text-sm text-slate-400">Let your audience know it's coming</p>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <button
+              onClick={() => {
+                navigator.clipboard.writeText("https://distill.app/c/rate-raising-playbook");
+                showToast("Link copied! ✓");
+              }}
+              className="inline-flex items-center gap-2 rounded-lg border border-slate-700 px-4 py-2 text-sm font-medium hover:border-[#14B8A6] transition"
+            >
+              <Copy className="h-4 w-4 text-[#14B8A6]" />
+              Copy link
+            </button>
+            <a
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                "Just built a full course with @DistillApp in 47 seconds — curriculum, scripts, workbook, email drip, and sales page all ready. distill.app",
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-lg border border-slate-700 px-4 py-2 text-sm font-medium hover:border-[#14B8A6] transition"
+            >
+              Share on X
+            </a>
+            <a
+              href="https://www.linkedin.com/sharing/share-offsite/?url=https://distill.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-lg border border-slate-700 px-4 py-2 text-sm font-medium hover:border-[#14B8A6] transition"
+            >
+              Share on LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+
       {/* Sticky bottom bar */}
       <div className="fixed inset-x-0 bottom-0 z-30 border-t border-slate-800 bg-[#0F172A]/95 backdrop-blur">
         <div className="mx-auto max-w-7xl px-6 py-3 flex items-center justify-between text-sm">
           <span className="text-slate-400">
-            <span className="text-[#14B8A6] font-semibold">CourseForge</span> generated 23 assets for your course
+            <span className="text-[#14B8A6] font-semibold">Distill</span> generated 23 assets for your course
           </span>
           <button
             onClick={() => showToast("Link copied! ✓")}
